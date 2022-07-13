@@ -1,0 +1,294 @@
+mixed-port: 7893
+allow-lan: true
+mode: Rule
+log-level: silent
+external-controller: :9090
+proxies:
+proxy-groups:
+  - name: 代理
+    type: select
+    proxies:
+      - 延迟
+      - 中国
+      - 转池
+      - 原生
+      - 订阅
+      - 订阅2
+  - name: 中国
+    type: select
+    use:
+      - cn
+  - name: 转池
+    type: select
+    use:
+      - relay-pool
+  - name: 原生
+    type: select
+    use:
+      - origin
+  - name: 延迟
+    type: url-test
+    use:
+      - all
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    tolerance: 50
+  - name: 订阅
+    type: select
+    use:
+      - sub
+  - name: 订阅2
+    type: select
+    use:
+      - sub2
+
+proxy-providers:
+  cn:
+    type: file
+    url: "http://192.168.99.73:12580/clash/proxies?c=CN,HK,TW"
+    interval: 21600
+    path: proxy/cn.yaml
+    health-check:
+      enable: true
+      interval: 3600
+      url: http://www.gstatic.com/generate_204
+  relay-pool:
+    type: file
+    url: "http://192.168.99.73:12580/clash/proxies?nc=CN,HK,TW&filter=rp&speed=10"
+    interval: 21600
+    path: proxy/relay-pool.yaml
+    health-check:
+      enable: true
+      interval: 3600
+      url: http://www.gstatic.com/generate_204
+  origin:
+    type: file
+    url: "http://192.168.99.73:12580/clash/proxies?nc=CN,HK,TW&filter=nrp&speed=10"
+    interval: 21600
+    path: proxy/origin.yaml
+    health-check:
+      enable: true
+      interval: 3600
+      url: http://www.gstatic.com/generate_204
+  all:
+    type: file
+    url: "http://192.168.99.73:12580/clash/proxies"
+    interval: 3600
+    path: proxy/all.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+  sub:
+    type: file
+    url: "http://192.168.99.73:25500/sub?target=clash&url=https%3A%2F%2Fsub.oceancloud.asia%2Flink%2F1rgiu71yl11nrjvl%3Fclash%3D1"
+    interval: 600
+    path: proxy/sub.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: http://www.gstatic.com/generate_204
+  sub2:
+    type: file
+    url: "http://192.168.99.73:25500/sub?target=clash&url=https%3A%2F%2Fsub.elkcloud.cc%2Flink%2FRaAwCTj1wcmcQ96y%3Fsub%3D3"
+    interval: 600
+    path: proxy/sub2.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: http://www.gstatic.com/generate_204
+
+rule-providers:
+  LocalAreaNetwork:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/LocalAreaNetwork.yaml"
+    interval: 86400
+    path: rule/LocalAreaNetwork.yaml
+  UnBan:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/UnBan.yaml"
+    interval: 86400
+    path: rule/UnBan.yaml
+  BanAD:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/BanAD.yaml"
+    interval: 86400
+    path: rule/BanAD.yaml
+  BanProgramAD:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/BanProgramAD.yaml"
+    interval: 86400
+    path: rule/BanProgramAD.yaml
+  GoogleFCM:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleFCM.yaml"
+    interval: 86400
+    path: rule/Ruleset/GoogleFCM.yaml
+  GoogleCN:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleCN.yaml"
+    interval: 86400
+    path: rule/Ruleset/GoogleCN.yaml
+  SteamCN:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/SteamCN.yaml"
+    interval: 86400
+    path: rule/Ruleset/SteamCN.yaml
+  OneDrive:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/OneDrive.yaml"
+    interval: 86400
+    path: rule/Ruleset/OneDrive.yaml
+  Microsoft:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Microsoft.yaml"
+    interval: 86400
+    path: rule/Ruleset/Microsoft.yaml
+  Apple:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Apple.yaml"
+    interval: 86400
+    path: rule/Ruleset/Apple.yaml
+  Telegram:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Telegram.yaml"
+    interval: 86400
+    path: rule/Ruleset/Telegram.yaml
+  NetEaseMusic:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/NetEaseMusic.yaml"
+    interval: 86400
+    path: rule/Ruleset/NetEaseMusic.yaml
+  Epic:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Epic.yaml"
+    interval: 86400
+    path: rule/Ruleset/Epic.yaml
+  Sony:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Sony.yaml"
+    interval: 86400
+    path: rule/Ruleset/Sony.yaml
+  Steam:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Steam.yaml"
+    interval: 86400
+    path: rule/Ruleset/Steam.yaml
+  YouTube:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/YouTube.yaml"
+    interval: 86400
+    path: rule/Ruleset/YouTube.yaml
+  Netflix:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Netflix.yaml"
+    interval: 86400
+    path: rule/Ruleset/Netflix.yaml
+  Bahamut:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Bahamut.yaml"
+    interval: 86400
+    path: rule/Ruleset/Bahamut.yaml
+  BilibiliHMT:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/BilibiliHMT.yaml"
+    interval: 86400
+    path: rule/Ruleset/BilibiliHMT.yaml
+  Bilibili:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Bilibili.yaml"
+    interval: 86400
+    path: rule/Ruleset/Bilibili.yaml
+  ChinaMedia:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/ChinaMedia.yaml"
+    interval: 86400
+    path: rule/ChinaMedia.yaml
+  ProxyLite:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyLite.yaml"
+    interval: 86400
+    path: rule/ProxyLite.yaml
+  ProxyMedia:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyMedia.yaml"
+    interval: 86400
+    path: rule/ProxyMedia.yaml
+  ProxyGFWlist:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyGFWlist.yaml"
+    interval: 86400
+    path: rule/ProxyGFWlist.yaml
+  ChinaDomain:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/ChinaDomain.yaml"
+    interval: 86400
+    path: rule/ChinaDomain.yaml
+  ChinaCompanyIp:
+    behavior: ipcidr 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/ChinaCompanyIp.yaml"
+    interval: 86400
+    path: rule/ChinaCompanyIp.yaml
+  Download:
+    behavior: classical 
+    type: file
+    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/Download.yaml"
+    interval: 86400
+    path: rule/Download.yaml
+rules:
+ - RULE-SET,LocalAreaNetwork,DIRECT
+ - RULE-SET,UnBan,DIRECT
+ - RULE-SET,BanAD,REJECT
+ - RULE-SET,BanProgramAD,REJECT
+ - RULE-SET,GoogleFCM,代理
+ - RULE-SET,GoogleCN,DIRECT
+ - RULE-SET,SteamCN,代理
+ - RULE-SET,OneDrive,代理
+ - RULE-SET,Microsoft,代理
+ - RULE-SET,Apple,代理
+ - RULE-SET,Telegram,代理
+ - RULE-SET,NetEaseMusic,代理
+ - RULE-SET,Epic,代理
+ - RULE-SET,Sony,代理
+ - RULE-SET,Apple,代理
+ - RULE-SET,Steam,代理
+ - RULE-SET,YouTube,代理
+ - RULE-SET,Netflix,代理
+ - RULE-SET,Bahamut,代理
+ - RULE-SET,BilibiliHMT,代理
+ - RULE-SET,Bilibili,DIRECT
+ - RULE-SET,ChinaMedia,DIRECT
+ - RULE-SET,ProxyLite,代理
+ - RULE-SET,ProxyMedia,代理
+ - RULE-SET,ProxyGFWlist,代理
+ - RULE-SET,ChinaDomain,DIRECT
+ - RULE-SET,ChinaCompanyIp,DIRECT
+ - RULE-SET,Download,DIRECT
+ - GEOIP,CN,DIRECT
+ - MATCH,代理
