@@ -120,7 +120,7 @@ rule-providers:
   BanProgramAD:
     behavior: classical 
     type: file
-    url: "https://cdn.staticaly.com/gh/ACL4SSR/ACL4SSR/master/Clash/Providers/BanProgramAD.yaml"
+    url: "https://ghproxy.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanProgramAD.yaml"
     interval: 86400
     path: rule/BanProgramAD.yaml
   GoogleFCM:
