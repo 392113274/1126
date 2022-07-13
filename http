@@ -81,7 +81,7 @@ proxy-providers:
       url: http://www.gstatic.com/generate_204
   sub:
     type: http
-    url: "http://192.168.99.73:25500/sub?target=clash&url=https%3A%2F%2Fsub.oceancloud.asia%2Flink%2F1rgiu71yl11nrjvl%3Fclash%3D1"
+    url: "http://192.168.99.73:25501/sub?target=clash&url=https%3A%2F%2Fsub.oceancloud.asia%2Flink%2F1rgiu71yl11nrjvl%3Fclash%3D1"
     interval: 600
     path: proxy/sub.yaml
     health-check:
