@@ -44,7 +44,7 @@ proxy-groups:
 
 proxy-providers:
   cn:
-    type: file
+    type: http
     url: "http://192.168.99.73:12580/clash/proxies?c=CN,HK,TW"
     interval: 21600
     path: proxy/cn.yaml
@@ -53,7 +53,7 @@ proxy-providers:
       interval: 3600
       url: http://www.gstatic.com/generate_204
   relay-pool:
-    type: file
+    type: http
     url: "http://192.168.99.73:12580/clash/proxies?nc=CN,HK,TW&filter=rp&speed=10"
     interval: 21600
     path: proxy/relay-pool.yaml
@@ -62,7 +62,7 @@ proxy-providers:
       interval: 3600
       url: http://www.gstatic.com/generate_204
   origin:
-    type: file
+    type: http
     url: "http://192.168.99.73:12580/clash/proxies?nc=CN,HK,TW&filter=nrp&speed=10"
     interval: 21600
     path: proxy/origin.yaml
@@ -80,7 +80,7 @@ proxy-providers:
       interval: 600
       url: http://www.gstatic.com/generate_204
   sub:
-    type: file
+    type: http
     url: "http://192.168.99.73:25500/sub?target=clash&url=https%3A%2F%2Fsub.oceancloud.asia%2Flink%2F1rgiu71yl11nrjvl%3Fclash%3D1"
     interval: 600
     path: proxy/sub.yaml
@@ -89,7 +89,7 @@ proxy-providers:
       interval: 300
       url: http://www.gstatic.com/generate_204
   sub2:
-    type: file
+    type: http
     url: "http://192.168.99.73:25500/sub?target=clash&url=https%3A%2F%2Fsub.elkcloud.cc%2Flink%2FRaAwCTj1wcmcQ96y%3Fsub%3D3"
     interval: 600
     path: proxy/sub2.yaml
